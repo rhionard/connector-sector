@@ -1,0 +1,102 @@
+i wanna put that one idea for the if then roguelite here:
+
+WHENEVERs and THENs can be Common [1], Uncommon [2], Rare [3], or Legendary [4]. WHENEVER rarity determines frequency, THEN rarity determines risk/reward.
+
+IF ideas:
+
+[common] WHENEVER 1 second passes, with a 25% chance
+[common] WHENEVER you jump
+[common] WHENEVER you land on a platform
+[common] WHENEVER an uncommon event triggers
+[uncommon] WHENEVER you take damage
+[uncommon] WHENEVER you press all buttons
+[uncommon] WHENEVER you land on a GREEN platform
+[uncommon] WHENEVER a RARE event triggers
+[uncommon] WHENEVER you get a collectable
+[uncommon] WHENEVER the rightmost trigger triggers 10 times
+[rare] WHENEVER you stand still for 10 seconds
+[rare] WHENEVER a platform changes color
+[rare] WHENEVER you die
+[rare] WHENEVER a RARE connected to a COMMON is triggered
+[rare] WHENEVER the right trigger gives 50 points
+[rare] WHENEVER the timer is a multiple of 30 seconds
+[legendary] WHENEVER you beat the level
+[legendary] WHENEVER never
+[legendary] WHENEVER timer hits 30 seconds (only activates once)
+[legendary] WHENEVER 30 rare triggers have triggered
+[legendary] WHENEVER you want, exactly once (once every even round)
+
+Maybe even a mythical WHENEVER that activates more often but takes up more slots and doesn't have a THEN counterpart
+if that is the case,
+[mythical] WHENEVER you choose, twice a round
+[mythical] WHENEVER you start the level
+[mythical] WHENEVER another legendary or mythical WHENEVER triggers
+[mythical] WHENEVER your score gains another digit, above 2 digits
+
+THEN ideas:
+
+
+[common] +1 point
+[common] +7 points but take damage
+[common] randomize platform color
+[common] if timer is under 30 seconds, +5 points
+[common] every 10 triggers, +15 points
+[common] +3 points but you can't jump for 3 seconds
+[common] trigger a random common or uncommon trigger you have (excluding this one) (sticker effects apply)
+[uncommon] +0 points. increases by 1 whenever a RARE event triggers
+[uncommon] change platform color to a selected one
+[uncommon] +10 points
+[uncommon] +20 points but spawn 2 enemies
+[uncommon] +30 points but you can't move for 5 seconds
+[uncommon] +40 points but disable all triggers for 10 seconds
+[uncommon] get a temporary speed boost
+[rare] adjacent uncommon triggers get +1 point
+[rare] *1.5 points up to three times
+[rare] +50 points
+[rare] reset all triggers to their default numbers
+[rare] teleport anywhere you want
+[rare] +1 point. increases by 1 when triggered
+[rare] 50% chance to trigger the next then trigger
+[rare] trigger all COMMON thens
+[rare] the next THEN gets +1 retrigger next trigger
+[rare] get +10 seconds up to 3 times
+[legendary] trigger 2 adjacent thens
+[legendary] *2 points
+[legendary] after 3 triggers, earn a Star Point (retrigger a THEN once)
+[legendary] get a Star Point that lasts 1 round
+[legendary] get a random sticker
+
+CONNECTORS (change rarities but you have to do extra stuff or hurt your score or both)
+
+[rare->legendary] if score is -7
+[uncommon-rare] *0.8 score
+[common->rare] 1 in 20 chance  -!!!!!
+[common->rare] after 10 triggers
+[common->uncommon] get -5 points
+[common->uncommon] defeat an enemy, then do effect
+[common->rare] two times every round
+[uncommon->rare] 1 in 5 chance
+[rare->legendary] disable all triggers for rest of round
+[uncommon->common] trigger this twice  (same for rare to uncommon)
+[uncommon->rare] wait 15 seconds each trigger
+
+STICKERS
+they do stuff    to your   Connector Sectors
+
+DOUBLE STICKER   retrigger    what the star point would have done
+TEMP STICKER   retrigger but goes away at the end of the round
++ STICKER   +points based on rarity
+* STICKER   *points based on rarity
+FRACTURED    gives *2 but can only trigger once a round
+CHAOTIC    triggers a random other trigger of the same rarity you have when this triggers
+
+
+
+you can find these in a level or after you beat a level. levels also have timers
+
+CHARACTER IDEAS:
+
+rare and uncommon triggers are the same. rare triggers give -1 point
+all triggers give +1 more point
+start with a free Star Bit
+start with 5 random if and then combinations
