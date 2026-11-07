@@ -12,8 +12,10 @@ function connector_ui:init(startup)
   connector_ui:add_tile("magnet")
   connector_ui:add_tile("onepoint")
   ]]
+  --u
+  --j
   --connector_ui:add_tile("standstill")
-  connector_ui:add_tile("temporalsavings")
+  --connector_ui:add_tile("temporalsavings")
   --connector_ui:add_tile("gforce")
     --[[
   connector_ui:add_tile("morepoints")
