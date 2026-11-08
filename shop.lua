@@ -292,7 +292,11 @@ shop_buy_funcs = {
     shop.shop_target.contents = shop_types[shop.shop_target.type].populate()
     shop:open_menu(shop.shop_target)
 
-
+    for i, j in ipairs(connector_ui.tiles) do
+      if j.connector.type == "snakeeyes" then
+        j.connector.extra.value = (j.connector.extra.value or 0) + 1
+      end
+    end
   end
 }
 

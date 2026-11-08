@@ -215,6 +215,16 @@ connector_types = {
       }
     },
 
+    consumably = {
+      rarity = UNCOMMON,
+      c_args = {nil,UNCOMMON},
+      cost = 6,
+      check_when = "consumable",
+      desc = {
+        "Triggers when you use a %yconsumable%!",
+      }
+    },
+
     extension = {
       rarity = COMMON,
       c_args = {nil,COMMON},
@@ -656,6 +666,24 @@ connector_types = {
       end,
       desc = {
         "Spawns an %rApple%!, %oOrange%! and %rCherry%!",
+      }
+    },
+
+    snakeeyes = {
+      rarity = UNCOMMON,
+      c_args = {UNCOMMON, nil},
+      cost = 5,
+      func = function(c)
+        game:gain((c.connector.extra.value or 0) * 2 )
+      end,
+      extra_info = function(c)
+        return {
+          "+" .. tostring((c.connector.extra.value or 0) * 2)
+        }
+      end,
+      desc = {
+        "This trigger gains %g+2 points%!",
+        "for each %yReroll%! taken after purchase",
       }
     },
 
@@ -1246,6 +1274,11 @@ function connector_types:get_desc(c)
   if connector_types.list[c.connector.type].get_desc then
     txt = connector_types.list[c.connector.type].get_desc(c)
   end
+
+  return format_desc(txt)
+end
+
+function format_desc(txt)
 
   local q = ""
   for a, b in ipairs(txt) do

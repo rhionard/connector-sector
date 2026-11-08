@@ -232,6 +232,7 @@ function game:play()
   player:init()
   fruit:init()
   for i, j in ipairs(connector_ui.tiles) do
+    j.connector.times_triggered = 0
     if (connector_types.list[j.connector.type].start_round ~= nil) then
       connector_types.list[j.connector.type].start_round(j)
     end

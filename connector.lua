@@ -30,6 +30,7 @@ function connectors:make(ctype, c_args_)
   ob.stickers = {}
   ob.extra = {}
   ob.perma_bonus = 0
+  ob.times_triggered = 0
   return ob
 end
 
@@ -46,7 +47,7 @@ function connectors:can_connect(a, b)
   return c1 >= c2
 end
 
-function connectors:proc(c, args, forced_)
+function connectors:proc(c, args, forced_, retriggered_)
   local ctype = connector_types.list[c.connector.type]
 
   local res = (ctype.func == nil) or (ctype.func(c, args) ~= false)
@@ -55,13 +56,17 @@ function connectors:proc(c, args, forced_)
     return
   end
 
+  play_sound("kwuh")
+  c.pulse = 0.5
+
+  c.connector.times_triggered = (c.connector.times_triggered or 0) + 1
+
   if c.connector.perma_bonus then
     game:gain(c.connector.perma_bonus)
   end
 
   --TODO: different sounds for common/uncommon/rare, maybe different sounds for extenders?
-  play_sound("kwuh")
-  c.pulse = 0.5
+
 
   if c.connector.c_args[1] ~= nil and c.connector.c_args[2] ~= nil then
     queues:queue({func = function()
@@ -77,6 +82,15 @@ function connectors:proc(c, args, forced_)
       end}, 0.1)
     end
   end
+
+  if not retriggered_ then
+    for a, b in ipairs(c.connector.stickers) do
+      if b == "starbit" then
+        connectors:proc(c, args, true, true)
+      end
+    end
+  end
+
 end
 
 function connectors:proc_all_with_type(ctype, args)

@@ -14,8 +14,8 @@ function connector_ui:init(startup)
   ]]
   --u
   --j
-  --connector_ui:add_tile("standstill")
-  --connector_ui:add_tile("temporalsavings")
+  connector_ui:add_tile("standstill")
+  connector_ui:add_tile("snakeeyes")
   --connector_ui:add_tile("gforce")
     --[[
   connector_ui:add_tile("morepoints")
@@ -213,6 +213,16 @@ function connector_ui:drawone(j, x, y)
 
   love.graphics.printf(connector_types:get_extra_info(j), x - sx / 2, y + sy / 3, sx, "center")
   love.graphics.setFont(font_low)
+
+  if love.keyboard.isDown("7") then
+    love.graphics.printf(j.connector.times_triggered, x - sx + 10, y + sy / 3, sx, "center")
+    love.graphics.setFont(font_low)
+  end
+
+  if j.connector.stickers and #j.connector.stickers > 0 then
+    love.graphics.printf(j.connector.times_triggered, x - sx + 10, y + sy / 3, sx, "center")
+    love.graphics.setFont(font_low)
+  end
 
   --[[
   if j.child then

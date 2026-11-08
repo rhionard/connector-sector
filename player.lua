@@ -177,7 +177,7 @@ end
 
 function player:collide()
   for i, j in ipairs(fruit.fruits) do
-    if aabb(player.x + player.size / 2, j.x + j.size / 2, player.y + j.size / 2, j.y  + j.size / 2, j.size, j.size, player.size, player.size  *1.5) then
+    if aabb(player.x + player.size / 2, j.x + j.size / 2, player.y + j.size / 2, j.y + j.size / 2, j.size, j.size, player.size, player.size  *1.5) then
       fruit:collect(i)
     end
   end
@@ -185,7 +185,7 @@ function player:collide()
   if game.state == "shop" then
     local is_shopped = false
     for i, j in ipairs(shop.shops) do
-      if col(j.x + j.sizex / 3, player.x, j.y, player.y, j.sizex * 0.75, j.sizey) then
+      if aabb(player.x, j.x, player.y + player.size, j.y, player.size, player.size, j.sizex, j.sizey) then
         if shop.close then
           shop:open_menu(j)
           shop:ease()
