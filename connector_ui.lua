@@ -14,8 +14,8 @@ function connector_ui:init(startup)
   ]]
   --u
   --j
-  connector_ui:add_tile("standstill")
-  connector_ui:add_tile("snakeeyes")
+  connector_ui:add_tile("debug")
+  connector_ui:add_tile("fork")
   --connector_ui:add_tile("gforce")
     --[[
   connector_ui:add_tile("morepoints")

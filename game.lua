@@ -33,6 +33,7 @@ game_states = {
       love.graphics.rectangle("fill", -wx / 3, FLOOR + 25, wx, wy)
 
       player:draw()
+      spawns:draw()
       fruit:draw()
       particle:draw()
 
@@ -97,6 +98,8 @@ game_states = {
         fruit_spawner:update(dt)
 
         fruit:update(dt)
+
+        spawns:update(dt)
       end
       connector_ui:update(dt)
     end
@@ -116,6 +119,7 @@ game_states = {
   shop = {
     init = function()
       shop:init()
+      spawns:init()
       fruit:init()
       player:init()
       fruit_spawner.next_fruit = nil
@@ -231,6 +235,7 @@ end
 function game:play()
   player:init()
   fruit:init()
+  spawns:init()
   for i, j in ipairs(connector_ui.tiles) do
     j.connector.times_triggered = 0
     if (connector_types.list[j.connector.type].start_round ~= nil) then

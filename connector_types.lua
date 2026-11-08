@@ -17,7 +17,10 @@ connector_types = {
       start_round = function(c)
         c.connector.extra.count = 0
       end,
-      func = function(c, args)
+      func = function(c, args, forced_)
+        if forced_ then
+          return true
+        end
         c.connector.extra.count = (c.connector.extra.count or 0) + 1
         return c.connector.extra.count % 3 == 0
       end,
@@ -32,7 +35,7 @@ connector_types = {
       cost = 7,
       check_when = "collect",
       func = function(c, args)
-        return fruit:matches(args.fruit, "banana", args)
+        return fruit:matches(args, "banana", args)
       end,
       desc = {
         "Triggers when you %ycollect%! a %yBanana"
@@ -45,7 +48,7 @@ connector_types = {
       cost = 6,
       check_when = "miss",
       func = function(c, args)
-        return (fruit:matches(args.fruit, "apple", args))
+        return (fruit:matches(args, "apple", args))
       end,
       desc = {
         "Triggers when you %rmiss%! an %rApple"
@@ -68,7 +71,7 @@ connector_types = {
       cost = 8,
       check_when = "collect",
       func = function(c, args)
-        return fruit:matches(args.fruit, "apple") or fruit:matches(args.fruit, "banana") or fruit:matches(args.fruit, "watermelon")
+        return fruit:matches(args, "apple") or fruit:matches(args, "banana") or fruit:matches(args, "watermelon")
       end,
       desc = {
         "Triggers when you %ycollect%! an",
@@ -101,19 +104,6 @@ connector_types = {
 
     },
 
-    apple = {
-      rarity = UNCOMMON,
-      c_args = {nil,UNCOMMON},
-      cost = 7,
-      check_when = "collect",
-      func = function(c, args)
-        return fruit:matches(args.fruit, "apple")
-      end,
-      desc = {
-        "Triggers when you %ycollect%! an %yApple"
-      }
-    },
-
     quintuplets = {
       rarity = RARE,
       c_args = {nil,RARE},
@@ -122,9 +112,12 @@ connector_types = {
       start_round = function(c)
         c.connector.extra = {}
       end,
-      func = function(c, args)
+      func = function(c, args, forced_)
+        if forced_ then
+          return true
+        end
         c.connector.extra.count = c.connector.extra.count or 5
-        if fruit:matches(args.fruit, "cherry") then
+        if fruit:matches(args, "cherry") then
           c.connector.extra.count = c.connector.extra.count - 1
           if c.connector.extra.count <= 0 then
             c.connector.extra.count = 5
@@ -251,6 +244,37 @@ connector_types = {
       }
     },
 
+    pingpong = {
+      rarity = COMMON,
+      c_args = {nil,COMMON},
+      cost = 3,
+      check_when = "wall",
+      start_round = function(c)
+        c.connector.extra.val = "right"
+      end,
+      func = function(c, args)
+        local res = c.connector.extra.val == args
+        if not res then
+          return false
+        end
+        if c.connector.extra.val == "right" then
+          c.connector.extra.val = "left"
+        else
+          c.connector.extra.val = "right"
+        end
+        return true
+      end,
+      extra_info = function(c)
+        return {
+          (c.connector.extra.val or  "right")
+        }
+      end,
+      desc = {
+        "Triggers when you hit the right wall",
+        "Switches which wall you have to hit"
+      }
+    },
+
     slipup = {
       rarity = COMMON,
       c_args = {nil,COMMON},
@@ -271,7 +295,7 @@ connector_types = {
       cost = 6,
       check_when = "spawn",
       func = function(c, args)
-        return fruit:matches(args.fruit, "grape") or fruit:matches(args.fruit, "grapes") --do later im tired i got 5 hours of sleep
+        return fruit:matches(args, "grape") or fruit:matches(args, "grapes") --do later im tired i got 5 hours of sleep
       end,
       desc = {
         "Triggers when %pGrape%!(s) are",
@@ -290,6 +314,38 @@ connector_types = {
       desc = {
         "Triggers when you %rsell%!",
         "an %gUncommon%! trigger",
+      }
+    },
+
+    thesacredmontra = {
+      rarity = RARE,
+      c_args = {nil,RARE},
+      cost = 9,
+      check_when = "collect",
+      start_round = function(c)
+        c.connector.extra.last_fruit = ""
+      end,
+      func = function(c, args, forced_)
+        if forced_ then
+          return true
+        end
+
+        if (c.connector.extra.last_fruit == "" or c.connector.extra.last_fruit == "apple") and fruit:matches(args, "apple") then
+          c.connector.extra.last_fruit = "apple"
+        elseif c.connector.extra.last_fruit == "apple" and fruit:matches(args, "orange") then
+          c.connector.extra.last_fruit = "orange"
+        elseif c.connector.extra.last_fruit == "orange" and fruit:matches(args, "banana") then
+          c.connector.extra.last_fruit = ""
+          return true
+        else
+          c.connector.extra.last_fruit = ""
+        end
+        return false
+      end,
+      desc = {
+        "Triggers when you %gcollect%! an",
+        "%rApple%!, then an %oOrange%!, then",
+        "a B%yanana%! consecutively"
       }
     },
 
@@ -416,15 +472,15 @@ connector_types = {
     chumpchange = {
       rarity = RARE,
       c_args = {RARE, nil},
-      cost = 5,
+      cost = 8,
       func = function(c)
         if (game.money == 0) then
-          game.money = game.money + 10
+          game.money = game.money + 7
         end
       end,
       desc = {
         "If you have %y0$%!,",
-        "Gain %y10$%!",
+        "Gain %y7$%!",
       }
     },
 
@@ -446,6 +502,29 @@ connector_types = {
         "%g+3 points%!",
         "Above %yConnectors%! have a %y25% chance%!",
         "to gain %g+1 permanent point%!"
+      }
+    },
+
+    plusorminus = {
+      rarity = COMMON,
+      c_args = {COMMON, nil},
+      cost = 1,
+      start_round = function(c)
+        c.connector.extra.val = 1
+      end,
+      func = function(c)
+        game:gain(11 * c.connector.extra.val)
+        c.connector.extra.val = c.connector.extra.val * -1
+      end,
+      extra_info = function(c)
+        return {
+          tostring(c.connector.extra.val or 1)
+        }
+      end,
+      desc = {
+        "Alternates between",
+        "%g+11 points%! and",
+        "%r-11 points%!"
       }
     },
 
@@ -773,6 +852,21 @@ connector_types = {
       end,
       desc = {
         "%y25% chance%! to spawn an %oOrange%!",
+      }
+    },
+
+    fork = {
+      rarity = COMMON,
+      c_args = {COMMON, nil},
+      cost = 2,
+      func = function(c)
+        spawns:spawn("fork", player.x, player.y)
+        spawns:spawn("fork", player.x, player.y)
+      end,
+      desc = {
+        "Spawn two Forks",
+        "Forks collect fruits they pass",
+        "and score them one additional time"
       }
     },
 
@@ -1212,6 +1306,32 @@ connector_types = {
       desc = {
         "Triggers if there are at least",
         "%y4%! %rApples%! on screen"
+      }
+    },
+
+    varietyistheslice = {
+      rarity = COMMON,
+      c_args = {COMMON, UNCOMMON},
+      cost = 4,
+      func = function(c)
+        local appling, oranging, bananing = 0, 0, 0
+        for i, j in ipairs(fruit.fruits) do
+          if fruit:matches(j, "apple", j) then
+            appling = true
+          end
+          if fruit:matches(j, "orange", j) then
+            oranging = true
+          end
+          if fruit:matches(j, "banana", j) then
+            bananing = true
+          end
+        end
+        return appling and oranging and bananing
+      end,
+      desc = {
+        "Triggers if there's an",
+        "%rApple%!, %oOrange%!, and %yBanana%!",
+        "on screen"
       }
     },
 

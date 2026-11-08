@@ -81,6 +81,8 @@ end
 
 function player:update(dt)
   local pspeed = player.speed
+  local ox, oy = player.x, player.y
+
   if player.stun_timer > 0 then
     player.stun_timer = player.stun_timer - dt
     pspeed = pspeed / 7
@@ -161,6 +163,29 @@ function player:update(dt)
   --   we need to like. geometric mean ?????
 
   player:collide()
+
+  if game.state ~= "shop" then
+
+    if player.x >= math.ceil(wx / 3) then
+      player.x = math.ceil(wx / 3)
+      if player.in_wall ~= 1 then
+        connectors:proc_all_when("wall", "right")
+        play_sound("wood")
+      end
+      player.in_wall = 1
+    elseif player.x <= math.ceil(-wx / 3) then
+      player.x = math.ceil(-wx / 3)
+      if player.in_wall ~= 0 then
+        play_sound("wood")
+        connectors:proc_all_when("wall", "left")
+      end
+      player.in_wall = 0
+
+    else
+      player.in_wall = nil
+    end
+
+  end
 end
 
 function player:jump_upwards_instead_of_downwards()
@@ -185,7 +210,7 @@ function player:collide()
   if game.state == "shop" then
     local is_shopped = false
     for i, j in ipairs(shop.shops) do
-      if aabb(player.x, j.x, player.y + player.size, j.y, player.size, player.size, j.sizex, j.sizey) then
+      if aabb(player.x, j.x, player.y, j.y, 50, 50, j.sizex, j.sizey) then
         if shop.close then
           shop:open_menu(j)
           shop:ease()

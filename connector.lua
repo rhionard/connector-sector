@@ -50,7 +50,7 @@ end
 function connectors:proc(c, args, forced_, retriggered_)
   local ctype = connector_types.list[c.connector.type]
 
-  local res = (ctype.func == nil) or (ctype.func(c, args) ~= false)
+  local res = (ctype.func == nil) or (ctype.func(c, args, forced_) ~= false)
 
   if not res and not forced_ then
     return
