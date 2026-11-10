@@ -6,7 +6,8 @@ fruit_types = {
     },
     orange = {
       color = {1,0.8,0},
-      speed = 165
+      speed = 165,
+      cost = 7
     },
     watermelon = {
       color = {0,1,0},
@@ -17,7 +18,8 @@ fruit_types = {
     cherry = {
       color = {1,0,0.4},
       size = 25,
-      speed = 70
+      speed = 70,
+      cost = 10
     },
     bombfruit = {
       color = {0.3,0.3,0.3},
@@ -33,7 +35,8 @@ fruit_types = {
           end
         }, 3)
         ]]
-      end
+      end,
+      cost = 6
     },
     banana = {
       color = {1,1,0.4},
@@ -64,7 +67,8 @@ fruit_types = {
         for a = 1, (3 + (game.grape_bonus or 0)) do
           fruit:add({fruit = "grape"}, love.math.random(-wx / 4, wx / 4))
         end
-      end
+      end,
+      cost = 7
     },
     blueberries = {
       size = 25,

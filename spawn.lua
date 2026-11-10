@@ -75,7 +75,8 @@ function spawns:draw()
     love.graphics.translate(j.x, j.y)
     love.graphics.rotate(j.dir)
 
-    love.graphics.rectangle("fill", - j.sizex / 2, - j.sizey / 2, j.sizex, j.sizey)
+    --love.graphics.rectangle("fill", - j.sizex / 2, - j.sizey / 2, j.sizex, j.sizey)
+    love.graphics.draw(sprites["spawns/" .. j.type], - j.sizex / 2, - j.sizey / 2)
     love.graphics.pop()
   end
 end

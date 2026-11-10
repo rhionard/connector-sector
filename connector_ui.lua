@@ -15,7 +15,7 @@ function connector_ui:init(startup)
   --u
   --j
   connector_ui:add_tile("debug")
-  connector_ui:add_tile("bigging")
+  connector_ui:add_tile("spoon")
   --connector_ui:add_tile("gforce")
     --[[
   connector_ui:add_tile("morepoints")
@@ -205,9 +205,9 @@ function connector_ui:drawone(j, x, y)
 
   --love.graphics.setColor(1,1,1)
   love.graphics.draw(j.sprite, math.floor(x - sx / 2), math.floor(y - sy / 2), 0, sx / CXSIZE)
-  love.graphics.setColor(0,0,0)
+  love.graphics.setColor(1,1,1)
   love.graphics.setFont(font_lower)
-  love.graphics.printf(connector_types.list[j.connector.type].name or "?", x , y - sy / 2, sx, "center")
+  love.graphics.printf(connector_types.list[j.connector.type].name or "?", x + sx / 2 - 5 , y - sy / 2, sx, "center")
 
   local mx, my = love.mouse.getX(), love.mouse.getY()
   if col(x, mx, y, my, CXSIZE / 2 + 5, CYSIZE / 2 + 10) then
@@ -216,7 +216,7 @@ function connector_ui:drawone(j, x, y)
     love.graphics.setColor(0,0,0)
     love.graphics.printf(connector_types:get_desc(j), x + sx / 2 + 20, y - sy / 3, sx * 3, "center")
   end
-
+  love.graphics.setColor(0,0,0)
   love.graphics.printf(connector_types:get_extra_info(j), x - sx / 2, y + sy / 3, sx, "center")
   love.graphics.setFont(font_low)
 

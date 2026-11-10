@@ -979,10 +979,9 @@ connector_types = {
       cost = 2,
       func = function(c)
         spawns:spawn("spoon", player.x, player.y)
-        spawns:spawn("spoon", player.x, player.y)
       end,
       desc = {
-        "Spawn 2 Spoons",
+        "Spawn a Spoon",
         "Spoons activate collect triggers",
         "for the first fruit they hit",
         "without destroying the fruit"
