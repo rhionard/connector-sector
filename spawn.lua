@@ -21,6 +21,28 @@ spawn_types = {
 
     end,
 
+  },
+  spoon = {
+    flying = true,
+    sizex = 30,
+    sizey = 10,
+    lifespan = 15,
+    init = function(s)
+      s.dir = love.math.random(-math.pi * 2/3 * 100, -math.pi / 3 * 100) / 100.
+      s.vx = 600 * math.cos(s.dir)
+      s.vy = 600 * math.sin(s.dir)
+    end,
+    update = function(s, dt)
+      for a = #fruit.fruits, 1, -1 do
+        local b = fruit.fruits[a]
+        if aabb(b.x, s.x, b.y, s.y, b.size, b.size, s.sizex, s.sizey) then
+          connectors:proc_all_when("collect", b)
+          return true
+        end
+      end
+
+    end,
+
   }
 }
 
@@ -68,7 +90,8 @@ function spawns:update(dt)
     j.x = j.x + j.vx * dt
     j.y = j.y + j.vy * dt
     j.lifespan = j.lifespan - dt
-    if j.lifespan <= 0 or del then
+    local oob = (j.x > wx / 2 or j.x < -wx / 2 or j.y > wy+50 or j.y < -wy)
+    if j.lifespan <= 0 or del or oob then
       table.insert(dels, i)
     end
   end

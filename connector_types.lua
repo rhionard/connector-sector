@@ -26,7 +26,9 @@ connector_types = {
       end,
       desc = {
         "Triggers every 3rd %rjump%!"
-      }
+      },
+      name = "Jumper",
+      pool = "default"
     },
 
     bananas = {
@@ -39,7 +41,9 @@ connector_types = {
       end,
       desc = {
         "Triggers when you %ycollect%! a %yBanana"
-      }
+      },
+      name = "Banana Trigger",
+      pool = "default"
     },
 
     droptheapple = {
@@ -52,7 +56,9 @@ connector_types = {
       end,
       desc = {
         "Triggers when you %rmiss%! an %rApple"
-      }
+      },
+      name = "Apple Slice",
+      pool = "default"
     },
 
     bombfruit = {
@@ -62,7 +68,9 @@ connector_types = {
       check_when = "explode",
       desc = {
         "Triggers when a Bombfruit %rexplodes%!"
-      }
+      },
+      name = "Catastrophic Failure",
+      pool = "default"
     },
 
     fruited = {
@@ -76,7 +84,9 @@ connector_types = {
       desc = {
         "Triggers when you %ycollect%! an",
         "%rApple%!, %yBanana%! or %gWatermelon%!"
-      }
+      },
+      name = "Traffic Lights",
+      pool = "default"
     },
 
     cycle = {
@@ -90,7 +100,9 @@ connector_types = {
       desc = {
         "Triggers when the %btimer%!",
         "hits an odd number"
-      }
+      },
+      name = "Cyclic Nature",
+      pool = "default"
     },
 
     loser = {
@@ -101,7 +113,8 @@ connector_types = {
         "Triggers when you %rlose%! points,",
         "but still have points remaining"
       },
-
+      name = "You Lose!",
+      pool = "default"
     },
 
     quintuplets = {
@@ -133,7 +146,9 @@ connector_types = {
       end,
       desc = {
         "Triggers every %y5th%! collected %rCherry%!"
-      }
+      },
+      name = "Quintuplets",
+      pool = "default"
     },
 
     startup = {
@@ -146,7 +161,9 @@ connector_types = {
       end,
       desc = {
         "Triggers when the %btimer%! hits 57",
-      }
+      },
+      name = "Power On",
+      pool = "default"
     },
 
     allonred = {
@@ -160,7 +177,9 @@ connector_types = {
       desc = {
         "Triggers when the %btimer%! hits 1,",
         "with a 50% chance"
-      }
+      },
+      name = "All On Red",
+      pool = "default"
     },
 
     downgrade = {
@@ -171,7 +190,9 @@ connector_types = {
         "80% chance to trigger when a %yConnector%!",
         "activates another %yConnector%! of a lower %rrarity%!",
         "%I(EXAMPLE: An Uncommon trigger activating a Common trigger)"
-      }
+      },
+      name = "Downgrade",
+      pool = "default"
     },
 
     standstill = {
@@ -205,7 +226,9 @@ connector_types = {
       end,
       desc = {
         "Triggers if you don't move for 4 seconds",
-      }
+      },
+      name = "Standstill",
+      pool = "default"
     },
 
     consumably = {
@@ -215,7 +238,9 @@ connector_types = {
       check_when = "consumable",
       desc = {
         "Triggers when you use a %yconsumable%!",
-      }
+      },
+      name = "Yummy Delicious",
+      pool = "default"
     },
 
     extension = {
@@ -226,7 +251,7 @@ connector_types = {
         c.connector.extra.val = 100
       end,
       func = function(c)
-        local res = love.math.random(0,99) < c.connector.extra.val
+        local res = love.math.random(0,99) < (c.connector.extra.val or 0)
         if res then
           c.connector.extra.val = c.connector.extra.val * 0.95
         end
@@ -241,7 +266,9 @@ connector_types = {
         "%y100% chance%! to trigger when",
         "any %bExtender%! activates",
         "Chance multiplies by 95% each trigger"
-      }
+      },
+      name = "Extended Tendency",
+      pool = "default"
     },
 
     pingpong = {
@@ -272,7 +299,9 @@ connector_types = {
       desc = {
         "Triggers when you hit the right wall",
         "Switches which wall you have to hit"
-      }
+      },
+      name = "Ping Pong",
+      pool = "default"
     },
 
     slipup = {
@@ -286,7 +315,9 @@ connector_types = {
       desc = {
         "%y50% chance%! to trigger when",
         "you drop a fruit",
-      }
+      },
+      name = "Whoops",
+      pool = "default"
     },
 
     spawnability = {
@@ -300,7 +331,9 @@ connector_types = {
       desc = {
         "Triggers when %pGrape%!(s) are",
         "%ospawned%! or %rdropped%!"
-      }
+      },
+      name = "Marbles",
+      pool = "default"
     },
 
     temporalsavings = {
@@ -314,7 +347,9 @@ connector_types = {
       desc = {
         "Triggers when you %rsell%!",
         "an %gUncommon%! trigger",
-      }
+      },
+      name = "Temporal Savings",
+      pool = "default"
     },
 
     thesacredmontra = {
@@ -346,14 +381,18 @@ connector_types = {
         "Triggers when you %gcollect%! an",
         "%rApple%!, then an %oOrange%!, then",
         "a B%yanana%! consecutively"
-      }
+      },
+      name = "The Sacred Montra",
+      pool = "default"
     },
 
     debug = {
       rarity = RARE,
       c_args = {nil,RARE},
       cost = 0,
-      check_when = "debug"
+      check_when = "debug",
+      name = "DEBUG",
+      pool = "debug"
     },
 
 
@@ -368,7 +407,9 @@ connector_types = {
       end,
       desc = {
         "%g+1 point"
-      }
+      },
+      name = "A Point",
+      pool = "default"
     },
 
     karma = {
@@ -382,7 +423,9 @@ connector_types = {
       desc = {
         "%g+3 points%!, but",
         "get 5% smaller"
-      }
+      },
+      name = "Karma",
+      pool = "default"
     },
 
     morepoints = {
@@ -394,7 +437,9 @@ connector_types = {
       end,
       desc = {
         "%g+7 points"
-      }
+      },
+      name = "A Handful Of Points",
+      pool = "default"
     },
 
     evenmorepoints = {
@@ -406,7 +451,9 @@ connector_types = {
       end,
       desc = {
         "%g+40 points"
-      }
+      },
+      name = "A School Of Points",
+      pool = "default"
     },
 
     topofthehill = {
@@ -429,7 +476,9 @@ connector_types = {
       end,
       desc = {
         "a"
-      }
+      },
+      name = "Top of the Hill",
+      pool = "default"
     },
 
     increment = {
@@ -451,7 +500,9 @@ connector_types = {
       desc = {
         "%g+1 point%! for each time",
         "this has been %ytriggered%! this round"
-      }
+      },
+      name = "Right Triangle",
+      pool = "default"
     },
 
     seedling = {
@@ -466,7 +517,9 @@ connector_types = {
         "%g+10 points%!",
         "This %yConnector%! gains",
         "%g+10 permanent points%!"
-      }
+      },
+      name = "Seedling",
+      pool = "default"
     },
 
     chumpchange = {
@@ -481,7 +534,9 @@ connector_types = {
       desc = {
         "If you have %y0$%!,",
         "Gain %y7$%!",
-      }
+      },
+      name = "Chump Charity",
+      pool = "default"
     },
 
     beanstalk = {
@@ -502,7 +557,9 @@ connector_types = {
         "%g+3 points%!",
         "Above %yConnectors%! have a %y25% chance%!",
         "to gain %g+1 permanent point%!"
-      }
+      },
+      name = "Beanstalk",
+      pool = "default"
     },
 
     plusorminus = {
@@ -525,7 +582,9 @@ connector_types = {
         "Alternates between",
         "%g+11 points%! and",
         "%r-11 points%!"
-      }
+      },
+      name = "Plus or Minus",
+      pool = "default"
     },
 
     loselm = {
@@ -537,7 +596,9 @@ connector_types = {
       end,
       desc = {
         "-60 seconds lm"
-      }
+      },
+      name = "LOSE!!! AAAAHHHHH",
+      pool = "debug"
     },
 
     magnet = {
@@ -552,7 +613,9 @@ connector_types = {
       end,
       desc = {
         "Brings all onscreen fruits closer to you",
-      }
+      },
+      name = "Magnet",
+      pool = "default"
     },
 
     bump = {
@@ -566,7 +629,9 @@ connector_types = {
       end,
       desc = {
         "Pushes all fruits upwards",
-      }
+      },
+      name = "^",
+      pool = "default"
     },
 
     throw = {
@@ -580,7 +645,9 @@ connector_types = {
       end,
       desc = {
         "Pushes all fruits downwards",
-      }
+      },
+      name = "v",
+      pool = "default"
     },
 
     qol = {
@@ -596,7 +663,9 @@ connector_types = {
       desc = {
         "Adds a random %ybonus%!",
         "to a random onscreen fruit"
-      }
+      },
+      name = "Quality of Life",
+      pool = "default"
     },
 
     shapeshift = {
@@ -610,7 +679,9 @@ connector_types = {
       end,
       desc = {
         "Turns all onscreen fruits into the %gupcoming%! fruit",
-      }
+      },
+      name = "Shapeshift",
+      pool = "default"
     },
 
     scatterbrain = {
@@ -624,7 +695,9 @@ connector_types = {
       end,
       desc = {
         "Turns all onscreen fruits into random fruits",
-      }
+      },
+      name = "Faulty Mutation",
+      pool = "default"
     },
 
     lotteryticket = {
@@ -650,7 +723,9 @@ connector_types = {
       desc = {
         "Start of Round: Select a random fruit from deck",
         "During Round: Changes upcoming fruit to the selected fruit"
-      }
+      },
+      name = "Lottery Ticket",
+      pool = "default"
     },
 
     teleport = {
@@ -663,7 +738,9 @@ connector_types = {
       end,
       desc = {
         "Teleport to the mouse cursor"
-      }
+      },
+      name = "Creative Mode",
+      pool = "default"
     },
 
     negation = {
@@ -675,7 +752,9 @@ connector_types = {
       end,
       desc = {
         "%rx-1%! points"
-      }
+      },
+      name = "Negative Space",
+      pool = "default"
     },
 
     doubledup = {
@@ -690,7 +769,9 @@ connector_types = {
         "+1 %gMultifruit%!",
         "The upcoming fruit takes",
         "1.5 more %ycycles%! to spawn"
-      }
+      },
+      name = "Double Dip",
+      pool = "default"
     },
 
     freeroll = {
@@ -702,7 +783,9 @@ connector_types = {
       end,
       desc = {
         "First reroll next shop costs 1$ less",
-      }
+      },
+      name = "Penny Pinching",
+      pool = "default"
     },
 
     abundance = {
@@ -715,7 +798,9 @@ connector_types = {
       end,
       desc = {
         "Spawns the next 2 %gupcoming%! fruits",
-      }
+      },
+      name = "Abundance",
+      pool = "default"
     },
 
     composter = {
@@ -723,7 +808,7 @@ connector_types = {
       c_args = {UNCOMMON, nil},
       cost = 3,
       func = function(c)
-        for i = 0, love.math.random(0,6) do
+        for i = 0, love.math.random(0,5) do
           if i ~= 0 then
             fruit_spawner:spawn({fruit = fruit_types:random()}, true)
           end
@@ -731,7 +816,9 @@ connector_types = {
       end,
       desc = {
         "Spawns a random amount of random fruits",
-      }
+      },
+      name = "Composter",
+      pool = "default"
     },
 
     fruitbowl = {
@@ -745,7 +832,9 @@ connector_types = {
       end,
       desc = {
         "Spawns an %rApple%!, %oOrange%! and %rCherry%!",
-      }
+      },
+      name = "Fruit Bowl",
+      pool = "default"
     },
 
     snakeeyes = {
@@ -763,7 +852,9 @@ connector_types = {
       desc = {
         "This trigger gains %g+2 points%!",
         "for each %yReroll%! taken after purchase",
-      }
+      },
+      name = "Snake Eyes",
+      pool = "default"
     },
 
     afewmore = {
@@ -774,20 +865,22 @@ connector_types = {
         c.connector.extra = {}
       end,
       func = function(c)
-        c.connector.extra.uses = (c.connector.extra.uses or 0) + 1
-        if (c.connector.extra.uses <= 8) then
+        c.connector.extra.uses = (c.connector.extra.uses or 0) + 2
+        if (c.connector.extra.uses <= 9) then
           game.timer = game.timer + 3
         end
       end,
       extra_info = function(c)
         return {
-          (c.connector.extra.uses or 0) .. "/8"
+          (c.connector.extra.uses or 0) .. "/9"
         }
       end,
       desc = {
-        "+3 seconds on the %btimer%!",
-        "8 uses"
-      }
+        "+2 seconds on the %btimer%!",
+        "9 uses"
+      },
+      name = "Stopwatch",
+      pool = "default"
     },
 
     alotmore = {
@@ -799,8 +892,8 @@ connector_types = {
       end,
       func = function(c)
         c.connector.extra.uses = (c.connector.extra.uses or 0) + 1
-        if (c.connector.extra.uses <= 2) then
-          game.timer = game.timer + 15
+        if (c.connector.extra.uses == 3) then
+          game.timer = game.timer + 45
         end
       end,
       extra_info = function(c)
@@ -809,9 +902,11 @@ connector_types = {
         }
       end,
       desc = {
-        "+15 seconds on the %btimer%!",
-        "2 uses"
-      }
+        "After 3 uses,",
+        "+45 seconds on the %btimer%!"
+      },
+      name = "Alarm Clock",
+      pool = "default"
     },
 
     highspawn = {
@@ -819,11 +914,13 @@ connector_types = {
       c_args = {RARE, nil},
       cost = 6,
       func = function(c)
-        fruit_spawner.spawnrate = fruit_spawner.spawnrate * 0.9
+        fruit_spawner.spawnrate = fruit_spawner.spawnrate / 1.15
       end,
       desc = {
-        "%g10%%! faster %gspawn rate%! for rest of round"
-      }
+        "%g15%%! faster %gspawn rate%! for rest of round"
+      },
+      name = "Fertilizer",
+      pool = "default"
     },
 
     jumpup = {
@@ -838,7 +935,9 @@ connector_types = {
       desc = {
         "Makes you jump",
         "%i(even if you're not on the ground)"
-      }
+      },
+      name = "Boost Orb",
+      pool = "default"
     },
 
     otang = {
@@ -852,7 +951,9 @@ connector_types = {
       end,
       desc = {
         "%y25% chance%! to spawn an %oOrange%!",
-      }
+      },
+      name = "Tangerine",
+      pool = "default"
     },
 
     fork = {
@@ -864,10 +965,30 @@ connector_types = {
         spawns:spawn("fork", player.x, player.y)
       end,
       desc = {
-        "Spawn two Forks",
+        "Spawn 2 Forks",
         "Forks collect fruits they pass",
         "and score them one additional time"
-      }
+      },
+      name = "Fork",
+      pool = "spawners"
+    },
+
+    spoon = {
+      rarity = COMMON,
+      c_args = {COMMON, nil},
+      cost = 2,
+      func = function(c)
+        spawns:spawn("spoon", player.x, player.y)
+        spawns:spawn("spoon", player.x, player.y)
+      end,
+      desc = {
+        "Spawn 2 Spoons",
+        "Spoons activate collect triggers",
+        "for the first fruit they hit",
+        "without destroying the fruit"
+      },
+      name = "Spoon",
+      pool = "spawners"
     },
 
     bananerang = {
@@ -882,7 +1003,9 @@ connector_types = {
       end,
       desc = {
         "%y12.5% chance%! to spawn 2 %yBananas%!",
-      }
+      },
+      name = "Banana Planet",
+      pool = "default"
     },
 
     cherrypicking = {
@@ -912,7 +1035,9 @@ connector_types = {
       desc = {
         "%g+5 points for each",
         "%rCherry%! on screen"
-      }
+      },
+      name = "Cherry Picking",
+      pool = "default"
     },
 
     countdown = {
@@ -934,7 +1059,9 @@ connector_types = {
       desc = {
         "Sets %btimer%! to 11",
         "Decreases by 1 every use"
-      }
+      },
+      name = "T Minus",
+      pool = "default"
     },
 
     citrus = {
@@ -951,7 +1078,9 @@ connector_types = {
       desc = {
         "Add a random %ybonus%! to",
         "all onscreen %oOranges%!"
-      }
+      },
+      name = "Citrus",
+      pool = "default"
     },
 
     meteors = {
@@ -977,7 +1106,9 @@ connector_types = {
       desc = {
         "%g+1 point%! for",
         "each second spent %rwithout%! collecting fruit"
-      }
+      },
+      name = "Meteorite",
+      pool = "default"
     },
 
     bigging = {
@@ -985,11 +1116,13 @@ connector_types = {
       c_args = {UNCOMMON, nil},
       cost = 5,
       func = function(c)
-        player.size = player.size * 1.08
+        player.size = player.size * 1.07
       end,
       desc = {
-        "Get %g8% bigger%!",
-      }
+        "Get %g7% bigger%!",
+      },
+      name = "Sprout",
+      pool = "default"
     },
 
     triplebogey = {
@@ -1018,7 +1151,9 @@ connector_types = {
       end,
       desc = {
         "%gx1.5 points%! three times"
-      }
+      },
+      name = "Three Star Rating",
+      pool = "default"
     },
 
     big = {
@@ -1029,11 +1164,13 @@ connector_types = {
         c.connector.extra = {}
       end,
       func = function(c)
-        player.size = DEFAULT_SIZE * 5
+        player.size = DEFAULT_SIZE * 3
       end,
       desc = {
         "get BIG"
-      }
+      },
+      name = "Overgrowth",
+      pool = "default"
     },
 
     rna = {
@@ -1053,7 +1190,9 @@ connector_types = {
       desc = {
         "Add a %ycopy%! of the gupcoming%! fruit",
         "to your deck %i(once per round)"
-      }
+      },
+      name = "RNA",
+      pool = "default"
     },
 
     agrape = {
@@ -1071,7 +1210,9 @@ connector_types = {
       desc = {
         "Spawns 2 %pGrapes%!",
         "%pGrape bushels%! spawn 2 additional %pGrape%!s"
-      }
+      },
+      name = "Grapeshot",
+      pool = "default"
     },
 
 
@@ -1090,10 +1231,12 @@ connector_types = {
       end,
       desc = {
         "Triggers if the %gupcoming%! fruit is a Bombfruit"
-      }
+      },
+      name = "Weather Alert",
+      pool = "default"
     },
 
-    lastfifteen = {
+    topten = {
       rarity = COMMON,
       c_args = {COMMON, UNCOMMON},
       cost = 6,
@@ -1103,7 +1246,9 @@ connector_types = {
       desc = {
         "Triggers if the %btimer%!",
         "is %y10%! or less"
-      }
+      },
+      name = "Top 10",
+      pool = "default"
     },
 
     kablooshk = {
@@ -1122,43 +1267,30 @@ connector_types = {
       end,
       desc = {
         "Every other activation, %rExplode%!"
-      }
+      },
+      name = "Boom",
+      pool = "default"
     },
 
     once = {
-      rarity = COMMON,
-      c_args = {COMMON, RARE},
+      rarity = UNCOMMON,
+      c_args = {UNCOMMON, RARE},
       cost = 5,
       start_round = function(c)
         c.connector.extra = {}
       end,
       func = function(c)
-        local p = c.connector.extra.val
-        c.connector.extra.val = false
-        return (p == nil)
+        local p = c.connector.extra.val or 0
+        c.connector.extra.val = p + 1
+        return (c.connector.extra.val == 5)
 
       end,
       desc = {
-        "Triggers %yonce%! per round"
-      }
-    },
-
-    twice = {
-      rarity = UNCOMMON,
-      c_args = {UNCOMMON, RARE},
-      cost = 6,
-      start_round = function(c)
-        c.connector.extra = {}
-      end,
-      func = function(c)
-        local p = c.connector.extra.val or 2
-        c.connector.extra.val = p - 1
-        return (p > 0)
-
-      end,
-      desc = {
-        "Triggers %ytwice%! per round"
-      }
+        "Triggers once per round",
+        "after 5 attempts",
+      },
+      name = "One",
+      pool = "default"
     },
 
     cooldown = {
@@ -1171,8 +1303,8 @@ connector_types = {
       func = function(c)
         local p = c.connector.extra.val or 0
         if p <= 0 then
-          c.connector.extra.val = 20
-          return true
+          c.connector.extra.val = 10
+          return love.math.random(1,2) == 1
         end
         return false
 
@@ -1182,22 +1314,17 @@ connector_types = {
           c.connector.extra.val = c.connector.extra.val - dt
         end
       end,
-      desc = {
-        "When triggered, cannot be triggered again for %y20%! seconds"
-      }
-    },
-
-    dragdown = {
-      rarity = UNCOMMON,
-      c_args = {UNCOMMON, RARE},
-      cost = 9,
-      func = function(c)
-        game:gain(1 - game.pts)
-
+      extra_info = function(c)
+        return {
+          tostring(c.connector.extra.val or 10)
+        }
       end,
       desc = {
-        "%rSet points to 1%! then trigger"
-      }
+        "When triggered, cannot be triggered again for %y10%! seconds",
+        "%g50% chance%! to work"
+      },
+      name = "Spin The Wheel",
+      pool = "default"
     },
 
     zerograv = {
@@ -1209,7 +1336,9 @@ connector_types = {
       end,
       desc = {
         "Decrease %ggravity%! by %y10%%!"
-      }
+      },
+      name = "Zero Gravity",
+      pool = "default"
     },
 
     gforce = {
@@ -1222,19 +1351,23 @@ connector_types = {
       end,
       desc = {
         "Increase %ggravity%! by %y10%%!"
-      }
+      },
+      name = "G Force",
+      pool = "default"
     },
 
     nothingleft = {
-      rarity = UNCOMMON,
-      c_args = {UNCOMMON, RARE},
+      rarity = COMMON,
+      c_args = {COMMON, UNCOMMON},
       cost = 6,
       func = function(c)
         return game.pts == 0
       end,
       desc = {
         "Triggers if you have %y0%! %gpoints%!"
-      }
+      },
+      name = "Blank",
+      pool = "default"
     },
 
     doubletime = {
@@ -1250,7 +1383,9 @@ connector_types = {
       end,
       desc = {
         "Retrigger the %yConnector%! below this %ytwice%!"
-      }
+      },
+      name = "Suspicious Man",
+      pool = "default"
     },
 
     tripletimer = {
@@ -1266,7 +1401,9 @@ connector_types = {
       end,
       desc = {
         "Retrigger the %yConnector%! below this %ytwice%!"
-      }
+      },
+      name = "Incredibly Suspicious Man",
+      pool = "default"
     },
 
     thrice = {
@@ -1284,7 +1421,9 @@ connector_types = {
       end,
       desc = {
         "Triggers %ythree times%! per round"
-      }
+      },
+      name = "The Rice",
+      pool = "default"
     },
 
     appled = {
@@ -1306,7 +1445,9 @@ connector_types = {
       desc = {
         "Triggers if there are at least",
         "%y4%! %rApples%! on screen"
-      }
+      },
+      name = "Appling",
+      pool = "default"
     },
 
     varietyistheslice = {
@@ -1314,7 +1455,7 @@ connector_types = {
       c_args = {COMMON, UNCOMMON},
       cost = 4,
       func = function(c)
-        local appling, oranging, bananing = 0, 0, 0
+        local appling, oranging, bananing = false, false, false
         for i, j in ipairs(fruit.fruits) do
           if fruit:matches(j, "apple", j) then
             appling = true
@@ -1332,7 +1473,9 @@ connector_types = {
         "Triggers if there's an",
         "%rApple%!, %oOrange%!, and %yBanana%!",
         "on screen"
-      }
+      },
+      name = "Balanced Breakfast",
+      pool = "default"
     },
 
     huh = {
@@ -1341,7 +1484,9 @@ connector_types = {
       cost = 1,
       desc = {
         "Always triggers, does nothing else"
-      }
+      },
+      name = "??????",
+      pool = "default"
     },
 
     next_up = {
@@ -1353,7 +1498,9 @@ connector_types = {
       end,
       desc = {
         "%g+4 points%! then triggers"
-      }
+      },
+      name = "Next Up",
+      pool = "default"
     },
 
     seasontwo = {
@@ -1361,11 +1508,13 @@ connector_types = {
       c_args = {RARE, RARE},
       cost = 3,
       func = function(c, args)
-        game:gain(20)
+        game:gain(30)
       end,
       desc = {
-        "%g+20 points%! then triggers"
-      }
+        "%g+30 points%! then triggers"
+      },
+      name = "Season Two",
+      pool = "default"
     },
 
     lol = {
@@ -1374,7 +1523,9 @@ connector_types = {
       cost = 1,
       desc = {
         "lol"
-      }
+      },
+      name = "Lol",
+      pool = "debug"
     },
 
   }

@@ -39,6 +39,11 @@ function love.load()
       sprites["consumables/" .. string.sub(j,1,-5)] = love.graphics.newImage("sprites/consumables/" .. j)
     end
   end
+  for i, j in ipairs(love.filesystem.getDirectoryItems("sprites/spawns")) do
+    if string.find(j, ".png") then
+      sprites["spawns/" .. string.sub(j,1,-5)] = love.graphics.newImage("sprites/spawns/" .. j)
+    end
+  end
   for i, j in ipairs(love.filesystem.getDirectoryItems("sprites/connector")) do
     sprites["connector/" .. string.sub(j,1,-5)] = love.graphics.newImage("sprites/connector/" .. j)
     local img = love.image.newImageData("sprites/connector/" .. j)

@@ -9,6 +9,11 @@ function fruit:init(startup)
 end
 
 function fruit:add(ft, x, y)
+  if #fruit.fruits > 2000 then
+    print("YOU BROKE THE GAME!")
+    return
+  end
+
   local ob = {}
   ob.fruit = ft
   ob.x = x

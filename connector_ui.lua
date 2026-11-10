@@ -15,7 +15,7 @@ function connector_ui:init(startup)
   --u
   --j
   connector_ui:add_tile("debug")
-  connector_ui:add_tile("fork")
+  connector_ui:add_tile("bigging")
   --connector_ui:add_tile("gforce")
     --[[
   connector_ui:add_tile("morepoints")
@@ -64,10 +64,13 @@ function connector_ui:add_tile(connect_, dont_add)
     return ob
   end
   table.insert(connector_ui.tiles, ob)
+  if game.state == "main" and connector_types.list[connect_].start_round then
+    connector_types.list[connect_].start_round(ob)
+  end
+
 end
 
 function connector_ui:add_copy(connect)
-  local connecty = connect_ or "jump"
   local ob = {}
   ob.x = wx * 5 / 6 + love.math.random(-90, 90)
   ob.y = wy / 2 + love.math.random(-240, 240)
@@ -81,6 +84,9 @@ function connector_ui:add_copy(connect)
   ob.pulse = 0
   ob.sprite = connect.sprite
   table.insert(connector_ui.tiles, ob)
+  if game.state == "main" and connector_types.list[connect_].start_round then
+    connector_types.list[connect_].start_round(ob)
+  end
 end
 
 function connector_ui:make_sprite(j)
@@ -201,7 +207,7 @@ function connector_ui:drawone(j, x, y)
   love.graphics.draw(j.sprite, math.floor(x - sx / 2), math.floor(y - sy / 2), 0, sx / CXSIZE)
   love.graphics.setColor(0,0,0)
   love.graphics.setFont(font_lower)
-  love.graphics.printf(j.connector.type, x , y - sy / 2, sx, "center")
+  love.graphics.printf(connector_types.list[j.connector.type].name or "?", x , y - sy / 2, sx, "center")
 
   local mx, my = love.mouse.getX(), love.mouse.getY()
   if col(x, mx, y, my, CXSIZE / 2 + 5, CYSIZE / 2 + 10) then
