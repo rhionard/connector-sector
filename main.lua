@@ -4,6 +4,7 @@ function love.load()
 
   require "menu"
   require "player"
+  require "characters"
   require "fruit_types"
   require "fruit"
   require "fruit_spawner"
@@ -59,9 +60,90 @@ function love.load()
   game:set_state("menu")
   game:init()
 
-  menu_init("menu")
   smartmenu:init()
 
+  the_menu = {
+      pos = {0, 0},
+      size = {1, 1},
+      engraving = 0,
+      type = "box",
+      col = {0.1, 0.15, 0.35, 0},
+      contents = {
+        {
+          type = "button",
+          pos = {0, 0},
+          size = {1, 1},
+          engraving = 0.4,
+          button = {
+            draw_func = function() end,
+            func = function()
+              selected_char = "manguyperson"
+              the_menu.contents = {charselect()}
+            end
+          }
+        },
+        {
+          type = "holder",
+          pos = {0, 0},
+          size = {0.75, 1},
+          engraving = 0.04,
+          contents = {
+
+          }
+        }
+      }
+    }
+
+end
+
+function charselect()
+  characters = {"manguyperson", "hoarse"}
+  local k = {
+    pos = {0, 0.5},
+    size = {1, 0.5},
+    engraving = 0.01,
+    type = "layout",
+    contents = {}
+  }
+  for a, b in ipairs(characters) do
+    table.insert(k.contents, {
+      pos = {0.25 * (a-1), 0},
+      size = {0.25, 1},
+      engraving = 0.01,
+      type = "button",
+      button = {
+        draw_func = function() end,
+        func = function(i, j)
+          selected_char = j.element.button.val
+        end,
+        val = b
+      }
+    })
+  end
+  return {
+          pos = {0, 0.5},
+          size = {1, 0.5},
+          engraving = 0.01,
+          type = "box",
+          contents = {
+
+            {
+              type = "button",
+              pos = {0, 0},
+              size = {1, 1},
+              engraving = 0.4,
+              button = {
+                draw_func = function() end,
+                func = function()
+                  game:setup_run(selected_char)
+                  game:set_state("main")
+                  the_menu.contents = {}
+                end
+              }
+            },
+            k
+          }
+  }
 end
 
 function play_sound(s, p_, v_)
@@ -79,8 +161,9 @@ function love.draw()
 
   setcursor = "normal"
   game:draw()
-  menu()
   smartmenu:draw()
+  smartmenu_drawone(the_menu, 0, 0, wx, wy)
+
 
   if setcursor == "hand"  and love.mouse.getCursor() ~= a_hand then
     love.mouse.setCursor(a_hand)
@@ -102,13 +185,12 @@ function love.update(dt)
   game:update(dt)
   queues:update(dt)
   particle:update(dt)
-  menu_update()
 end
 
 function love.mousepressed(mx, my, mb)
   connector_ui:mouse(mx, my, mb)
   shop:mouse(mx, my, mb)
-  menu_press()
+  smartmenu:mouse(the_menu, mx, my, mb)
 end
 
 function love.keypressed(k)
@@ -151,4 +233,8 @@ function love.keypressed(k)
   if k == "q" then
     consumable:use_consumable(#consumable.owned)
   end
+end
+
+function therandomize(a, b)
+  return love.math.random(1, b) <= a
 end

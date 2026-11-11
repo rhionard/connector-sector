@@ -22,26 +22,6 @@ function player:init()
   player.cycle = 0
 end
 
-
-playerdata = {
-  hoarse = {
-    sprites = {
-      idle = "idlebasket.png",
-      jump = "walk2basket.png",
-      cycle = {"jumpbasket.png", "walk2basket.png"}
-    },
-    name = "Chor"
-  },
-  manguyperson = {
-    sprites = {
-      idle = "idlebasket.png",
-      jump = "jumpbasket.png",
-      cycle = {"jumpbasket.png"}
-    },
-    name = "Blue"
-  }
-}
-
 function psprite(pname)
   local pdata = playerdata[pname].sprites
   player.s_idle = love.graphics.newImage("sprites/players/" .. pname .. "/" .. pdata.idle)
@@ -51,8 +31,6 @@ function psprite(pname)
     table.insert(player.s_walkcycle, love.graphics.newImage("sprites/players/" .. pname .. "/" .. b))
   end
 end
-
-psprite("manguyperson")
 
 function player:draw()
   love.graphics.setColor(1,1,1)

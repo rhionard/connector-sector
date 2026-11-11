@@ -18,14 +18,11 @@ connector_types = {
         c.connector.extra.count = 0
       end,
       func = function(c, args, forced_)
-        if forced_ then
-          return true
-        end
-        c.connector.extra.count = (c.connector.extra.count or 0) + 1
-        return c.connector.extra.count % 3 == 0
+        return therandomize(1,4)
       end,
       desc = {
-        "Triggers every 3rd %rjump%!"
+        "Triggers when you Jump",
+        "with a 25% chance"
       },
       name = "Jumper",
       pool = "default"
@@ -172,7 +169,7 @@ connector_types = {
       cost = 7,
       check_when = "timer",
       func = function(c, args)
-        return math.floor(game.timer) == 1 and love.math.random(1, 2) == 1
+        return math.floor(game.timer) == 1 and therandomize(1, 2)
       end,
       desc = {
         "Triggers when the %btimer%! hits 1,",
@@ -251,7 +248,7 @@ connector_types = {
         c.connector.extra.val = 100
       end,
       func = function(c)
-        local res = love.math.random(0,99) < (c.connector.extra.val or 0)
+        local res = therandomize(c.connector.extra.val or 0, 100)
         if res then
           c.connector.extra.val = c.connector.extra.val * 0.95
         end
@@ -310,7 +307,7 @@ connector_types = {
       cost = 3,
       check_when = "miss",
       func = function(c)
-        return love.math.random(1,2) == 1
+        return therandomize(1,2)
       end,
       desc = {
         "%y50% chance%! to trigger when",
@@ -546,7 +543,7 @@ connector_types = {
       func = function(c)
         local cparent = c.parent
         while cparent do
-          if love.math.random(1, 4) == 1 then
+          if therandomize(1, 10) then
             cparent.connector.perma_bonus = cparent.connector.perma_bonus + 1
           end
           cparent = cparent.parent
@@ -555,7 +552,7 @@ connector_types = {
       end,
       desc = {
         "%g+3 points%!",
-        "Above %yConnectors%! have a %y25% chance%!",
+        "Above %yConnectors%! have a %y10% chance%!",
         "to gain %g+1 permanent point%!"
       },
       name = "Beanstalk",
@@ -655,7 +652,7 @@ connector_types = {
       c_args = {COMMON, nil},
       cost = 6,
       func = function(c)
-        local rfruit = love.math.random(1, #fruit.fruits)
+        local rfruit = therandomize(1, #fruit.fruits)
         if fruit.fruits[rfruit] ~= nil then
           fruit:add_bonus(fruit.fruits[rfruit], fruit:random_bonus())
         end
@@ -950,7 +947,8 @@ connector_types = {
         end
       end,
       desc = {
-        "%y25% chance%! to spawn an %oOrange%!",
+        "If there are no %oOranges%! on screen,",
+        "spawn an %oOrange%!",
       },
       name = "Tangerine",
       pool = "default"
@@ -1199,15 +1197,16 @@ connector_types = {
       c_args = {RARE, nil},
       cost = 7,
       start_round = function(c)
-        grape_bonus = 0
+        game.grape_bonus = 0
       end,
       func = function(c)
-        fruit_spawner:spawn({fruit = "grape"})
-        fruit_spawner:spawn({fruit = "grape"})
-        grape_bonus = grape_bonus + 2
+        fruit_spawner:spawn({fruit = "grapes"})
+        fruit_spawner:spawn({fruit = "grapes"})
+        fruit_spawner:spawn({fruit = "grapes"})
+        game.grape_bonus = game.grape_bonus + 2
       end,
       desc = {
-        "Spawns 2 %pGrapes%!",
+        "Spawns 3 %pGrape bushels%!",
         "%pGrape bushels%! spawn 2 additional %pGrape%!s"
       },
       name = "Grapeshot",
@@ -1303,7 +1302,7 @@ connector_types = {
         local p = c.connector.extra.val or 0
         if p <= 0 then
           c.connector.extra.val = 10
-          return love.math.random(1,2) == 1
+          return therandomize(1,2)
         end
         return false
 

@@ -125,6 +125,26 @@ game_states = {
       fruit_spawner.next_fruit = nil
 
       player.x = -wx / 3.5
+
+      table.insert(the_menu.contents, {
+        type = "layout",
+        pos = {0,0},
+        size = {2/3, 1},
+        contents = {{
+        color = {0.2, 0.3, 0.7, 0.3, 0.5, 1},
+        pos = {0.25, 0.75},
+        size = {0.5, 0.25},
+        engraving = 0.01,
+        type = "button",
+        button = {
+          func = function()
+            game:set_state("main")
+            the_menu.contents = {}
+
+          end,
+          draw_func = function() end
+        }
+      }}})
     end,
     draw = function()
       love.graphics.setBackgroundColor(0.3, 0.55, 0.9)
@@ -199,35 +219,27 @@ function game:draw_deck()
   love.graphics.pop()
 end
 
-function game:setup_run()
+function game:setup_run(char)
+  game.character = char
   game.money = 0
   game.deck = {}
   game.requirement = 25
   game.round = 1
   game.stands = {}
   consumable:init()
+  psprite(char)
 
-  for i = 1, 2 do
-    --[[
-    fruit_spawner:add_to_deck("apple")
-    fruit_spawner:add_to_deck("banana")
-    fruit_spawner:add_to_deck("watermelon")
-    fruit_spawner:add_to_deck("cherry")
-    fruit_spawner:add_to_deck("bombfruit")
-    ]]
+  playerdata[char].init()
 
-    --[[
-    fruit_spawner:add_to_deck("blueberries", {boosted = true})
-    fruit_spawner:add_to_deck("apple")
-    fruit_spawner:add_to_deck("apple")
-    fruit_spawner:add_to_deck("bombfruit")
-    fruit_spawner:add_to_deck("bombfruit")
-    ]]
+  if false then
 
-    for a = 1, 5 do
-      fruit_spawner:add_to_deck(fruit_types:random())
+    for i = 1, 2 do
+
+      for a = 1, 5 do
+        fruit_spawner:add_to_deck(fruit_types:random())
+      end
+
     end
-
   end
 end
 
@@ -246,6 +258,7 @@ function game:play()
   game.pts = 0
   game.timer = 60
   game.spawnrate = 1
+  game.grape_bonus = 0
 
   local floor = math.floor((game.round - 1) / 3)
   local floor_round = (game.round - 1) % 3 + 1
@@ -286,25 +299,35 @@ end
 function game:win()
   if not game.won then
     game.pause = true
-    table.insert(menu_buttons, {
-      color = {0.2, 0.3, 0.7, 0.3, 0.5, 1},
-      text = "START THE GAME",
-      alttext = "",
-      x = wx / 3 - 132,
-      y = wy * 3 / 4 + 33,
-      sizex = 265,
-      sizey = 65,
-      func = function()
-        game.pause = false
-        game.round = game.round + 1
-        game.money = game.money + 10 + math.floor(game.timer / 5)
-        game:set_state("shop")
-        menu_init("shop")
-        queues:clear()
+    local k = {
+      type = "layout",
+      pos = {0,0},
+      size = {2/3, 1},
+      contents = {
+        {
+          color = {0.2, 0.3, 0.7, 0.3, 0.5, 1},
+          pos = {0.25, 0.75},
+          size = {0.5, 0.25},
+          engraving = 0.01,
+          type = "button",
+          button = {
+            func = function()
+              game.pause = false
+              game.round = game.round + 1
+              game.money = game.money + 10 + math.floor(game.timer / 5)
+              the_menu.contents = {}
+              game:set_state("shop")
 
-      end,
-      state = "main",
-    })
+              queues:clear()
+
+
+            end,
+            draw_func = function() end
+          }
+        }
+      }
+    }
+    table.insert(the_menu.contents, k)
   end
   game.won = true
 end
@@ -313,22 +336,30 @@ function game:lose()
   game.won = false
   if not game.lost then
     game.pause = true
-    table.insert(menu_buttons, {
-      color = {0.2, 0.3, 0.7, 0.3, 0.5, 1},
-      text = "START THE GAME",
-      alttext = "",
-      x = wx / 3 - 132,
-      y = wy * 3 / 4 + 33,
-      sizex = 265,
-      sizey = 65,
-      func = function()
-        game.pause = false
-        game:set_state("menu")
-        menu_init("menu")
-        game:clear()
-      end,
-      state = "main",
-    })
+    local k = {
+      type = "layout",
+      pos = {0,0},
+      size = {2/3, 1},
+      contents = {
+        {
+          color = {0.2, 0.3, 0.7, 0.3, 0.5, 1},
+          pos = {0.25, 0.75},
+          size = {0.5, 0.25},
+          engraving = 0.01,
+          type = "button",
+          button = {
+            func = function()
+              game.pause = false
+              game:set_state("menu")
+              menu_init("menu")
+              game:clear()
+            end,
+          }
+        }
+      }
+    }
+
+    table.insert(menu_buttons, k)
   end
   game.lost = true
 end

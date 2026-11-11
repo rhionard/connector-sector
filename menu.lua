@@ -89,6 +89,10 @@ smartmenu_types = {
       end
       love.graphics.rectangle("fill", x, y, width, height)
       love.graphics.setColor(1,1,1)
+      if sm.button and sm.button.draw_func then
+        sm.button.draw_func(sm, x, y, width, height)
+        return
+      end
       shop_draw_funcs[sm.override or shop.shop_target.type](sm, x, y, width, height)
     end
   },
@@ -185,4 +189,17 @@ function smartmenu_find(sm, xstart, ystart, wid, hei, depth_, rettype_)
   end
 
   return res
+end
+
+
+function smartmenu:mouse(themenu, mx, my, mb)
+  local buttons = smartmenu_find(themenu, 0,  0, wx, wy, 0, "button")
+  for i, j in ipairs(buttons) do
+    local button = j.element.button
+    if col(j.x + j.sizex / 2, mx, j.y + j.sizey / 2, my, j.sizex / 2, j.sizey / 2) then
+      local tfunc = button.func or function() end
+      tfunc(i, j)
+      return
+    end
+  end
 end

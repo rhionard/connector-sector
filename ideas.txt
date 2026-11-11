@@ -246,6 +246,8 @@ freeze all fruits for 10 seconds
 
 get BIG
 
+spawn a camel or horse
+
 random trigger gets +1 permanent point
 
 x1.5 points
@@ -456,6 +458,31 @@ GAME STATISTICS
 you can see how much of any particular fruit you've collected in a game, waht your permanent consumables are doing, and any other misc data about a run
 
 rare trigger: +1 point for each banana or grape dropped this game
+
+
+MUSIC???
+
+notes give +1 point. notes can also be sharp or flat.
+
+play a tune [uncommon]
+
+play a G note
+
+play a C note, increase key by 1 [common]
+
+when you play a G [uncommon]
+when you play a flat note [common]
+
+fruit: play a tune
+
+common->uncommon: if a flat note is being played
+
+
+
+
+all triggers have a 50% chance to give +2 points
+
+increase all probabilities by 5%
 
 
 
