@@ -300,6 +300,13 @@ All spawned objects turn towards apples
 Teleport all spawned objects tot he mouse
 
 
+Ways to kill the player will be very, very difficult to warrant this being a rare trigger:
+
+When the player dies [rare]
+
+Create a fake copy of the player that activates the same Triggers [rare]
+
+2% chance to kill the player and give +180 points
 
 
 

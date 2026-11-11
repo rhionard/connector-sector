@@ -15,7 +15,6 @@ function love.load()
   require "connector"
   require "connector_types"
   require "connector_ui"
-  require "ui"
   require "shop"
   require "spawn"
   love.graphics.setDefaultFilter("nearest", "nearest", 1)
